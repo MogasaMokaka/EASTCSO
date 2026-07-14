@@ -1,0 +1,612 @@
+/* ============================================================
+   EASTCSO - style.css  (Design 1: Navy & Green Classic)
+   Session 03 CSS + Session 04 Layout concepts only
+   ============================================================ */
+
+/* ── Reset ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+img  { max-width: 100%; display: block; }
+a    { text-decoration: none; color: inherit; }
+ul   { list-style: none; }
+button { cursor: pointer; border: none; background: none; font-family: inherit; }
+input, textarea, select { font-family: inherit; font-size: 1rem; }
+
+/* ── Base ── */
+html { scroll-behavior: smooth; }
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f0f2f5;
+  color: #111827;
+  font-size: 15px;
+  line-height: 1.65;
+}
+
+/* ============================================================
+   HEADER  (full width)
+   Session 03: background-color, color, padding
+   Session 04: display flex
+============================================================ */
+.site-header {
+  background-color: #0f2040;
+  color: #ffffff;
+  padding: 0 20px;
+  position: sticky;
+  top: 0;
+  z-index: 200;
+  border-bottom: 3px solid #1d9e75;
+}
+
+.header-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 12px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+
+.header-logo {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.logo-circle {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  background-color: #1d9e75;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: bold;
+  border: 2px solid #ffffff;
+  flex-shrink: 0;
+}
+
+.logo-img {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  border: 2px solid #ffffff;
+  flex-shrink: 0;
+}
+
+.header-title   { font-size: 17px; color: #ffffff; font-weight: bold; }
+.header-tagline { font-size: 11px; color: #9fe1cb; margin-top: 2px; }
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+/* Clock */
+.header-clock { text-align: right; }
+.clock-label  { font-size: 10px; color: rgba(255,255,255,0.5); text-transform: uppercase; }
+#live-clock   { font-size: 20px; font-weight: bold; color: #ffffff; }
+
+/* Nav toggle button - only shows on mobile/tablet */
+.nav-toggle {
+  display: none;
+  background-color: #1d9e75;
+  color: #ffffff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-size: 13px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* ============================================================
+   OVERLAY - darkens main content when sidebar is open on mobile
+============================================================ */
+.sidebar-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 299;
+}
+
+/* overlay becomes visible when sidebar is open */
+.sidebar-overlay.active {
+  display: block;
+}
+
+/* ============================================================
+   OUTER CONTAINER
+============================================================ */
+.outer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px 20px;
+}
+
+/* ============================================================
+   INNER CONTAINER - CSS Grid 2fr + 1fr
+   Session 04: display grid, grid-template-columns
+============================================================ */
+.inner-container {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 20px;
+  align-items: start;
+}
+
+/* ============================================================
+   MAIN CONTENT  (2fr)
+============================================================ */
+.main-content {
+  background-color: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  overflow: hidden;
+  min-width: 0;
+}
+
+/* ── Sections ── */
+.section {
+  padding: 36px 32px;
+  border-bottom: 1px solid #e5e7eb;
+}
+.section:last-child { border-bottom: none; }
+
+.section-title {
+  font-size: 22px;
+  font-weight: bold;
+  color: #0f2040;
+  margin-bottom: 12px;
+}
+.section-body {
+  color: #4b5563;
+  margin-bottom: 18px;
+}
+.sub-heading {
+  font-size: 15px;
+  font-weight: bold;
+  color: #0f2040;
+  margin: 16px 0 10px;
+}
+
+/* ── HERO ── */
+.hero-section {
+  background-color: #0f2040;
+  padding: 40px 32px;
+}
+
+.hero-img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 6px;
+  border: 2px solid rgba(255,255,255,0.2);
+  margin-bottom: 20px;
+}
+.hero-img-placeholder {
+  width: 100%;
+  height: 130px;
+  background-color: rgba(255,255,255,0.06);
+  border: 2px dashed rgba(255,255,255,0.2);
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: rgba(255,255,255,0.35);
+  font-size: 11px;
+  margin-bottom: 20px;
+  gap: 4px;
+}
+.hero-title {
+  font-size: 24px;
+  font-weight: bold;
+  color: #ffffff;
+  margin-bottom: 14px;
+  line-height: 1.3;
+}
+.hero-desc {
+  color: rgba(255,255,255,0.8);
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+.hero-buttons {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+/* ── Goals list ── */
+.goals-list li {
+  color: #4b5563;
+  font-size: 14px;
+  padding: 5px 0 5px 20px;
+  border-bottom: 1px solid #f3f4f6;
+  position: relative;
+}
+.goals-list li::before {
+  content: "✓";
+  color: #1d9e75;
+  font-weight: bold;
+  position: absolute;
+  left: 0;
+}
+
+/* ============================================================
+   BUTTONS
+   Session 03: background-color, color, padding, border
+============================================================ */
+.btn {
+  display: inline-block;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: bold;
+  border: 2px solid transparent;
+  cursor: pointer;
+  font-family: Arial, sans-serif;
+}
+.btn-primary { background-color: #1d9e75; color: #ffffff; border-color: #1d9e75; }
+.btn-primary:hover { background-color: #085041; border-color: #085041; }
+.btn-outline { background-color: transparent; color: #ffffff; border-color: rgba(255,255,255,0.5); }
+.btn-outline:hover { background-color: rgba(255,255,255,0.1); border-color: #ffffff; }
+.btn-edit   { background-color: #3b82f6; color: #ffffff; border: none; padding: 5px 10px; border-radius: 4px; font-size: 12px; cursor: pointer; font-family: Arial, sans-serif; }
+.btn-delete { background-color: #ef4444; color: #ffffff; border: none; padding: 5px 10px; border-radius: 4px; font-size: 12px; cursor: pointer; font-family: Arial, sans-serif; }
+.btn-save   { background-color: #c9922a; color: #ffffff; border: none; padding: 5px 10px; border-radius: 4px; font-size: 12px; cursor: pointer; font-family: Arial, sans-serif; }
+.btn-cancel { background-color: #9ca3af; color: #ffffff; border: none; padding: 5px 10px; border-radius: 4px; font-size: 12px; cursor: pointer; font-family: Arial, sans-serif; }
+
+/* ============================================================
+   FORM BOX
+============================================================ */
+.form-box {
+  background-color: #f7f8fa;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  padding: 20px;
+  margin-bottom: 24px;
+}
+.form-heading { font-size: 14px; font-weight: bold; color: #0f2040; margin-bottom: 14px; }
+
+/* Session 04: flexbox for form rows */
+.form-row {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-bottom: 12px;
+  width: 100%;
+}
+.form-group label {
+  font-size: 11px;
+  font-weight: bold;
+  color: #4b5563;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.form-group input,
+.form-group textarea,
+.form-group select {
+  padding: 9px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  font-size: 13px;
+  color: #111827;
+  background-color: #ffffff;
+  width: 100%;
+  font-family: Arial, sans-serif;
+}
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: #1d9e75;
+}
+.error-msg   { color: #ef4444; font-size: 12px; margin-top: 8px; min-height: 18px; }
+.success-msg { color: #1d9e75; font-size: 12px; margin-top: 8px; min-height: 18px; }
+
+/* ============================================================
+   DATA TABLE
+   Session 02: table, tr, th, td
+   Session 03: background-color, color, padding, text-align
+============================================================ */
+.table-wrap { overflow-x: auto; margin-bottom: 8px; }
+.data-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.data-table th {
+  background-color: #0f2040;
+  color: #ffffff;
+  padding: 10px 12px;
+  text-align: left;
+  font-size: 12px;
+  white-space: nowrap;
+}
+.data-table td {
+  padding: 10px 12px;
+  border-bottom: 1px solid #e5e7eb;
+  color: #4b5563;
+  vertical-align: middle;
+}
+.data-table tr:hover td { background-color: #f7f8fa; }
+.data-table tr:last-child td { border-bottom: none; }
+.actions { display: flex; gap: 6px; }
+
+/* Status badges */
+.badge { display: inline-block; font-size: 11px; font-weight: bold; padding: 2px 8px; border-radius: 12px; }
+.badge-upcoming  { background-color: #dbeafe; color: #1d4ed8; }
+.badge-ongoing   { background-color: #e1f5ee; color: #085041; }
+.badge-completed { background-color: #f3f4f6; color: #6b7280; }
+.badge-cancelled { background-color: #fee2e2; color: #991b1b; }
+
+/* Inline edit inputs */
+.inline-input  { padding: 4px 8px; border: 1px solid #1d9e75; border-radius: 4px; font-size: 12px; width: 100%; font-family: Arial, sans-serif; }
+.inline-select { padding: 4px 6px; border: 1px solid #1d9e75; border-radius: 4px; font-size: 12px; font-family: Arial, sans-serif; }
+.empty-msg { text-align: center; color: #9ca3af; font-size: 13px; padding: 20px 0; display: none; }
+
+/* ============================================================
+   ANNOUNCEMENT CARDS
+   Session 04: CSS Grid for cards
+============================================================ */
+.cards-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.ann-card {
+  background-color: #f7f8fa;
+  border: 1px solid #e5e7eb;
+  border-left: 4px solid #1d9e75;
+  border-radius: 6px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.ann-title  { font-size: 14px; font-weight: bold; color: #0f2040; }
+.ann-body   { font-size: 13px; color: #4b5563; flex: 1; }
+.ann-date   { font-size: 11px; color: #9ca3af; }
+.ann-actions { display: flex; gap: 8px; }
+
+/* ============================================================
+   LEADER PHOTOS
+   Session 02: img element taught
+============================================================ */
+.leader-avatar {
+  width: 44px; height: 44px; border-radius: 50%;
+  background-color: #0f2040; color: #ffffff;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 10px; font-weight: bold;
+}
+.leader-photo {
+  width: 44px; height: 44px; border-radius: 50%;
+  object-fit: cover; border: 2px solid #9fe1cb;
+}
+
+/* ============================================================
+   LEADERSHIP SECTION EXTRAS
+============================================================ */
+.ministry-heading {
+  font-size: 13px; font-weight: bold;
+  color: #ffffff; background-color: #1a3560;
+  padding: 8px 14px; border-radius: 4px;
+  margin-top: 20px; margin-bottom: 10px;
+  text-transform: uppercase; letter-spacing: 1px;
+}
+.exec-row td { background-color: #f0f4ff; }
+.pos-badge {
+  display: inline-block; font-size: 11px; font-weight: bold;
+  padding: 3px 10px; border-radius: 12px; color: #ffffff;
+}
+.pos-president { background-color: #0f2040; }
+.pos-pm        { background-color: #1d4ed8; }
+.pos-vp        { background-color: #7c3aed; }
+.pos-cs        { background-color: #065f46; }
+.eastcso-motto {
+  text-align: center; font-size: 15px; font-weight: bold;
+  color: #1d9e75; margin-top: 24px; padding: 12px;
+  border-top: 2px solid #e1f5ee; border-bottom: 2px solid #e1f5ee;
+}
+
+/* ============================================================
+   SERVICES GRID
+   Session 04: CSS Grid 3 columns
+============================================================ */
+.services-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-top: 8px; }
+.service-card {
+  background-color: #f7f8fa; border: 1px solid #e5e7eb;
+  border-radius: 6px; padding: 16px; text-align: center;
+}
+.service-img { width: 100%; height: 90px; object-fit: cover; border-radius: 4px; margin-bottom: 10px; }
+.service-img-placeholder {
+  width: 100%; height: 70px; background-color: #e5e7eb;
+  border: 2px dashed #d1d5db; border-radius: 4px;
+  display: flex; align-items: center; justify-content: center;
+  color: #9ca3af; font-size: 10px; margin-bottom: 10px;
+}
+.service-name { font-size: 13px; font-weight: bold; color: #0f2040; margin-bottom: 6px; }
+.service-desc { font-size: 12px; color: #4b5563; line-height: 1.55; }
+
+/* ============================================================
+   SIDEBAR  (1fr)
+   On DESKTOP: always visible beside main content
+   On MOBILE/TABLET: hidden, slides in from right when toggled
+   Session 04: aside element, position sticky
+============================================================ */
+.sidebar {
+  position: sticky;
+  top: 80px;
+  height: fit-content;
+  background-color: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.sidebar-close {
+  display: none;
+}
+
+.sidebar-block {
+  padding: 16px;
+  border-bottom: 1px solid #e5e7eb;
+}
+.sidebar-block:last-child { border-bottom: none; }
+
+.sidebar-title {
+  font-size: 11px; font-weight: bold;
+  text-transform: uppercase; letter-spacing: 1px;
+  color: #9ca3af; margin-bottom: 10px;
+}
+
+/* Session 04: nav element, flex-direction column */
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.nav-link {
+  display: block;
+  padding: 8px 10px;
+  border-radius: 4px;
+  font-size: 13px;
+  color: #4b5563;
+  border-left: 3px solid transparent;
+}
+.nav-link:hover {
+  background-color: #e1f5ee;
+  color: #085041;
+  border-left-color: #1d9e75;
+}
+.nav-link.active {
+  background-color: #e1f5ee;
+  color: #085041;
+  font-weight: bold;
+  border-left-color: #1d9e75;
+}
+
+.sidebar-list { display: flex; flex-direction: column; gap: 4px; }
+.sidebar-item {
+  font-size: 12px; color: #4b5563;
+  padding: 5px 0; border-bottom: 1px solid #f3f4f6;
+}
+.sidebar-item:last-child { border-bottom: none; }
+.sidebar-item a { color: #1d9e75; }
+.sidebar-item a:hover { text-decoration: underline; }
+.sidebar-item.muted { color: #9ca3af; font-style: italic; }
+
+/* ============================================================
+   FOOTER
+   Session 04: footer element
+============================================================ */
+.site-footer {
+  background-color: #0f2040;
+  color: rgba(255,255,255,0.7);
+  padding: 24px 20px;
+  border-top: 3px solid #1d9e75;
+}
+.footer-inner {
+  max-width: 1200px; margin: 0 auto;
+  display: flex; justify-content: space-between;
+  align-items: center; gap: 20px; flex-wrap: wrap;
+}
+.footer-name   { font-size: 13px; font-weight: bold; color: #ffffff; margin-bottom: 3px; }
+.footer-addr   { font-size: 11px; color: rgba(255,255,255,0.5); }
+.footer-links  { display: flex; gap: 16px; flex-wrap: wrap; }
+.footer-links a { font-size: 12px; color: #9fe1cb; }
+.footer-links a:hover { color: #ffffff; }
+.footer-credit { font-size: 11px; color: rgba(255,255,255,0.5); text-align: right; }
+
+/* ============================================================
+   RESPONSIVE BREAKPOINTS
+   Session 04: CSS controls layout on different devices
+============================================================ */
+
+/* ── TABLET  (max 900px) ── */
+@media (max-width: 900px) {
+
+  /* Show the Nav toggle button in header */
+  .nav-toggle {
+    display: block;
+  }
+
+  /* Grid becomes single column - sidebar removed from flow */
+  .inner-container {
+    grid-template-columns: 1fr;
+  }
+
+  /*
+     SIDEBAR MOBILE BEHAVIOUR:
+     - Hidden off-screen to the RIGHT by default
+     - When .open class is added by JS, it slides in
+     - It overlays the main content - NOT below it
+     - Position fixed so it stays visible while scrolling
+  */
+  .sidebar {
+    position: fixed;
+    top: 0;
+    right: -320px;        /* hidden off screen to the right */
+    width: 280px;
+    height: 100%;
+    z-index: 300;
+    overflow-y: auto;
+    border-radius: 0;
+    border: none;
+    border-left: 3px solid #1d9e75;
+    box-shadow: -4px 0 20px rgba(0,0,0,0.3);
+    transition: right 0.3s;  /* smooth slide animation */
+    top: 0;
+  }
+
+  /* When JS adds .open class - sidebar slides in */
+  .sidebar.open {
+    right: 0;
+  }
+
+  /* Show the close button inside sidebar on mobile */
+  .sidebar-close {
+    display: block;
+    width: 100%;
+    padding: 14px 16px;
+    background-color: #0f2040;
+    color: #9fe1cb;
+    font-size: 13px;
+    font-weight: bold;
+    text-align: right;
+    border: none;
+    cursor: pointer;
+    border-bottom: 1px solid #1d9e75;
+  }
+  .sidebar-close:hover { background-color: #1a3560; }
+
+  /* Cards single column on tablet */
+  .cards-grid    { grid-template-columns: 1fr; }
+  .services-grid { grid-template-columns: 1fr 1fr; }
+  .form-row      { flex-direction: column; }
+
+  .footer-inner  { flex-direction: column; text-align: center; gap: 12px; }
+  .footer-credit { text-align: center; }
+  .footer-links  { justify-content: center; }
+}
+
+/* ── MOBILE  (max 560px) ── */
+@media (max-width: 560px) {
+  .section        { padding: 24px 16px; }
+  .services-grid  { grid-template-columns: 1fr; }
+  .cards-grid     { grid-template-columns: 1fr; }
+  .header-title   { font-size: 13px; }
+  .header-tagline { display: none; }
+  .hero-title     { font-size: 19px; }
+  #live-clock     { font-size: 14px; }
+  .clock-label    { display: none; }
+  .sidebar        { width: 260px; right: -280px; }
+  .data-table     { font-size: 11px; }
+  .data-table th,
+  .data-table td  { padding: 7px 8px; }
+}

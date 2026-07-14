@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EASTCSO - EASTC Students Organization</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ========================================================
+       HEADER  (CSS Grid Row 1 - full width)
+  ======================================================== -->
+  <header class="site-header">
+    <div class="header-inner">
+
+      <div class="header-logo">
+        <img src="image/abc.png" alt="EASTCSO Logo" class="logo-img" />
+        <!--
+          PHOTO SLOT - EASTCSO Logo
+          Replace the div below with:
+          <img src="images/logo.png" alt="EASTCSO Logo" class="logo-img" />
+        -->
+        <div class="logo-circle">EASTCSO</div>
+        <div class="header-text">
+          <h1 class="header-title">EASTC Students Organization</h1>
+          <p class="header-tagline">Uniting Students &nbsp;&middot;&nbsp; Empowering Futures &nbsp;&middot;&nbsp; Dar es Salaam</p>
+        </div>
+      </div>
+
+      <div class="header-right">
+        <!-- Live clock -->
+        <div class="header-clock">
+          <p class="clock-label">Current Time</p>
+          <p id="live-clock" class="clock-time">--:--:--</p>
+        </div>
+
+        <!-- Sidebar toggle button - visible on mobile/tablet only -->
+        <!-- No 3 dots - just a clean Nav button as per instructions -->
+        <button class="nav-toggle" id="nav-toggle" onclick="toggleSidebar()">
+          Nav
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- ========================================================
+       OVERLAY - clicking outside sidebar closes it on mobile
+  ======================================================== -->
+  <div class="sidebar-overlay" id="sidebar-overlay" onclick="closeSidebar()"></div>
+
+  <!-- ========================================================
+       PAGE GRID - Main 2fr + Sidebar 1fr
+  ======================================================== -->
+  <div class="outer-container">
+    <div class="inner-container">
+
+      <!-- ====================================================
+           MAIN CONTENT  (2fr)
+      ==================================================== -->
+      <main class="main-content">
+
+        <!-- SECTION 1: HOME -->
+        <section id="home" class="section hero-section">
+          <!--
+            PHOTO SLOT - Hero / Campus image
+            Replace the placeholder div with:
+            <img src="images/campus.jpg" alt="EASTC Campus" class="hero-img" />
+          -->
+          <div class="hero-img-placeholder">
+            <img src="image/abc.png" alt="EASTCSO Logo" class="logo-img" />
+            <p>Add campus photo here</p>
+            <p>Replace this div with:</p>
+            <p>&lt;img src="images/campus.jpg" class="hero-img" /&gt;</p>
+          </div>
+          <div class="hero-text">
+            <h2 class="hero-title">Your Voice. Your Community. Your Future.</h2>
+            <p class="hero-desc">
+              The EASTC Students Organization (EASTCSO) is the official student
+              body of the Eastern Africa Statistical Training Centre. We coordinate
+              student activities, events, announcements, and communication between
+              students and the EASTC administration.
+            </p>
+            <div class="hero-buttons">
+              <a href="#about"   class="btn btn-primary">Learn More</a>
+              <a href="#contact" class="btn btn-outline">Contact Us</a>
+            </div>
+          </div>
+        </section>
+
+        <!-- SECTION 2: ABOUT -->
+        <section id="about" class="section">
+          <h2 class="section-title">About EASTCSO</h2>
+          <p class="section-body">
+            The EASTC Students Organization was established to represent and serve
+            the interests of all students at the Eastern Africa Statistical Training
+            Centre in Dar es Salaam, Tanzania. We work closely with the administration
+            to ensure a productive learning environment and an active campus life
+            for every student.
+          </p>
+          <h3 class="sub-heading">Our Goals</h3>
+          <ul class="goals-list">
+            <li>Promote academic excellence and student welfare</li>
+            <li>Coordinate student clubs, sports and social events</li>
+            <li>Serve as the official bridge between students and EASTC administration</li>
+            <li>Foster leadership skills and professional development</li>
+            <li>Ensure fair and equal representation of all students</li>
+          </ul>
+        </section>
+
+        <!-- SECTION 3: EVENTS (CRUD) -->
+        <section id="events" class="section">
+          <h2 class="section-title">Events Manager</h2>
+          <p class="section-body">Add, view, edit and delete EASTCSO events below.</p>
+
+          <div class="form-box">
+            <h3 class="form-heading">Add New Event</h3>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="ev-name">Event Name</label>
+                <input type="text" id="ev-name" placeholder="e.g. Sports Day" />
+              </div>
+              <div class="form-group">
+                <label for="ev-date">Date</label>
+                <input type="date" id="ev-date" />
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="ev-venue">Venue</label>
+                <input type="text" id="ev-venue" placeholder="e.g. EASTC Grounds" />
+              </div>
+              <div class="form-group">
+                <label for="ev-status">Status</label>
+                <select id="ev-status">
+                  <option value="Upcoming">Upcoming</option>
+                  <option value="Ongoing">Ongoing</option>
+                  <option value="Completed">Completed</option>
+                  <option value="Cancelled">Cancelled</option>
+                </select>
+              </div>
+            </div>
+            <button class="btn btn-primary" onclick="addEvent()">+ Add Event</button>
+            <p id="ev-error" class="error-msg"></p>
+          </div>
+
+          <div class="table-wrap">
+            <table class="data-table" border="1" width="100%">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Event Name</th>
+                  <th>Date</th>
+                  <th>Venue</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="events-tbody"></tbody>
+            </table>
+            <p id="ev-empty" class="empty-msg">No events yet. Add one above.</p>
+          </div>
+        </section>
+
+        <!-- SECTION 4: ANNOUNCEMENTS (CRUD) -->
+        <section id="announcements" class="section">
+          <h2 class="section-title">Announcements Manager</h2>
+          <p class="section-body">Post, view, edit and delete EASTCSO announcements below.</p>
+
+          <div class="form-box">
+            <h3 class="form-heading">Post New Announcement</h3>
+            <div class="form-group">
+              <label for="ann-title">Title</label>
+              <input type="text" id="ann-title" placeholder="Announcement title..." />
+            </div>
+            <div class="form-group">
+              <label for="ann-body">Message</label>
+              <textarea id="ann-body" rows="3" placeholder="Write the announcement message..."></textarea>
+            </div>
+            <button class="btn btn-primary" onclick="addAnnouncement()">+ Post Announcement</button>
+            <p id="ann-error" class="error-msg"></p>
+          </div>
+
+          <div id="ann-cards" class="cards-grid"></div>
+          <p id="ann-empty" class="empty-msg">No announcements yet. Post one above.</p>
+        </section>
+
+        <!-- SECTION 5: LEADERSHIP -->
+        <section id="leadership" class="section">
+          <h2 class="section-title">EASTCSO Executive Organ 2025/2026</h2>
+          <p class="section-body">"Serving students through Students" &mdash; Your elected representatives.</p>
+
+          <h3 class="ministry-heading">Executive Leadership</h3>
+          <div class="table-wrap">
+            <table class="data-table" border="1" width="100%">
+              <thead>
+                <tr>
+                  <th>Photo</th>
+                  <th>Full Name</th>
+                  <th>Position</th>
+                  <th>Ministry</th>
+                  <th>Contact</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="exec-row">
+                  <td>
+                    <!--
+                      PHOTO SLOT: PRESIDENT
+                      Save photo as: images/mario-macha.jpg
+                      Replace div with:
+                      <img src="images/mario-macha.jpg" alt="Mario Macha" class="leader-photo" />
+                    -->
+                    <div class="leader-avatar" style="background-color:#0f2040;">PRE</div>
+                  </td>
+                  <td><strong>Mario Macha</strong></td>
+                  <td><span class="pos-badge pos-president">President</span></td>
+                  <td>Executive Organ</td>
+                  <td>+255 693 827 599</td>
+                </tr>
+                <tr>
+                  <td>
+                    <!-- <img src="images/tumaini-hosea.jpg" alt="Tumaini Hosea" class="leader-photo" /> -->
+                    <div class="leader-avatar" style="background-color:#1d4ed8;">PM</div>
+                  </td>
+                  <td><strong>Tumaini Hosea</strong></td>
+                  <td><span class="pos-badge pos-pm">Prime Minister</span></td>
+                  <td>Ministry for President's Office</td>
+                  <td>+255 689 624 944</td>
+                </tr>
+                <tr>
+                  <td>
+                    <!-- <img src="images/nesta-msola.jpg" alt="Nesta Msola" class="leader-photo" /> -->
+                    <div class="leader-avatar" style="background-color:#7c3aed;">VP</div>
+                  </td>
+                  <td><strong>Nesta Msola</strong></td>
+                  <td><span class="pos-badge pos-vp">Vice President</span></td>
+                  <td>Ministry for Constitution, Justice and Legal Affairs</td>
+                  <td>+255 780 480 730</td>
+                </tr>
+                <tr>
+                  <td>
+                    <!-- <img src="images/steven-ladislaus.jpg" alt="Steven Ladislaus" class="leader-photo" /> -->
+                    <div class="leader-avatar" style="background-color:#065f46;">CS</div>
+                  </td>
+                  <td><strong>Steven Ladislaus</strong></td>
+                  <td><span class="pos-badge pos-cs">Chief Secretary</span></td>
+                  <td>Ministry for Finance and Planning</td>
+                  <td>+255 715 296 092</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3 class="ministry-heading">Ministry for President's Office</h3>
+          <div class="table-wrap">
+            <table class="data-table" border="1" width="100%">
+              <thead><tr><th>Photo</th><th>Full Name</th><th>Position</th><th>Contact</th></tr></thead>
+              <tbody>
+                <tr>
+                  <td><!-- <img src="images/brighton-john.jpg" alt="Brighton John" class="leader-photo" /> --><div class="leader-avatar">BJ</div></td>
+                  <td>Brighton John</td><td>Minister of President's Office</td><td>+255 769 407 963</td>
+                </tr>
+                <tr>
+                  <td><!-- <img src="images/herieth-onesmo.jpg" alt="Herieth Onesmo" class="leader-photo" /> --><div class="leader-avatar">HO</div></td>
+                  <td>Herieth Onesmo</td><td>D/Minister of President's Office</td><td>+255 740 614 737</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3 class="ministry-heading">Ministry for Constitution, Justice and Legal Affairs</h3>
+          <div class="table-wrap">
+            <table class="data-table" border="1" width="100%">
+              <thead><tr><th>Photo</th><th>Full Name</th><th>Position</th><th>Contact</th></tr></thead>
+              <tbody>
+                <tr>
+                  <td><!-- <img src="images/anuwary-mwitike.jpg" alt="Anuwary Mwitike" class="leader-photo" /> --><div class="leader-avatar">AM</div></td>
+                  <td>Anuwary Mwitike</td><td>Minister of Constitution, Justice and Legal Affairs</td><td>+255 626 008 501</td>
+                </tr>
+                <tr>
+                  <td><!-- <img src="images/asha-abdallah.jpg" alt="Asha Abdallah" class="leader-photo" /> --><div class="leader-avatar">AA</div></td>
+                  <td>Asha Abdallah</td><td>Secretary Minister</td><td>+255 625 908 472</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3 class="ministry-heading">Ministry for Finance and Planning</h3>
+          <div class="table-wrap">
+            <table class="data-table" border="1" width="100%">
+              <thead><tr><th>Photo</th><th>Full Name</th><th>Position</th><th>Contact</th></tr></thead>
+              <tbody>
+                <tr>
+                  <td><!-- <img src="images/fadhili-jefta.jpg" alt="Fadhili Jefta" class="leader-photo" /> --><div class="leader-avatar">FJ</div></td>
+                  <td>Fadhili Jefta</td><td>Minister of Finance and Planning</td><td>+255 710 305 537</td>
+                </tr>
+                <tr>
+                  <td><!-- <img src="images/caroline-victor.jpg" alt="Caroline Victor" class="leader-photo" /> --><div class="leader-avatar">CV</div></td>
+                  <td>Caroline Victor</td><td>Secretary Minister of Finance and Planning</td><td>+255 749 530 464</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3 class="ministry-heading">Ministry for Health and Social Welfare</h3>
+          <div class="table-wrap">
+            <table class="data-table" border="1" width="100%">
+              <thead><tr><th>Photo</th><th>Full Name</th><th>Position</th><th>Contact</th></tr></thead>
+              <tbody>
+                <tr>
+                  <td><!-- <img src="images/khadija-tafawa.jpg" alt="Khadija Tafawa" class="leader-photo" /> --><div class="leader-avatar">KT</div></td>
+                  <td>Khadija Tafawa</td><td>Minister of Health and Social Welfare</td><td>+255 616 377 053</td>
+                </tr>
+                <tr>
+                  <td><!-- <img src="images/bright-mtui.jpg" alt="Bright Mtui" class="leader-photo" /> --><div class="leader-avatar">BM</div></td>
+                  <td>Bright Mtui</td><td>D/Minister of Health and Social Welfare</td><td>+255 696 606 266</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3 class="ministry-heading">Ministry for Foreign Affairs</h3>
+          <div class="table-wrap">
+            <table class="data-table" border="1" width="100%">
+              <thead><tr><th>Photo</th><th>Full Name</th><th>Position</th><th>Contact</th></tr></thead>
+              <tbody>
+                <tr>
+                  <td><!-- <img src="images/victoria-kasapila.jpg" alt="Victoria Kasapila" class="leader-photo" /> --><div class="leader-avatar">VK</div></td>
+                  <td>Victoria Kasapila</td><td>Minister of Foreign Affairs</td><td>+255 748 716 585</td>
+                </tr>
+                <tr>
+                  <td><!-- <img src="images/zainab-ali.jpg" alt="Zainab Ali" class="leader-photo" /> --><div class="leader-avatar">ZA</div></td>
+                  <td>Zainab Ali</td><td>Secretary Minister of Foreign Affairs</td><td>+255 613 073 786</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3 class="ministry-heading">Ministry for Sports and Entertainments</h3>
+          <div class="table-wrap">
+            <table class="data-table" border="1" width="100%">
+              <thead><tr><th>Photo</th><th>Full Name</th><th>Position</th><th>Contact</th></tr></thead>
+              <tbody>
+                <tr>
+                  <td><!-- <img src="images/ahmad-kirusha.jpg" alt="Ahmad Kirusha" class="leader-photo" /> --><div class="leader-avatar">AK</div></td>
+                  <td>Ahmad Kirusha</td><td>Minister of Sports and Entertainments</td><td>+255 756 953 296</td>
+                </tr>
+                <tr>
+                  <td><!-- <img src="images/selemani-maulidi.jpg" alt="Selemani Maulidi" class="leader-photo" /> --><div class="leader-avatar">SM</div></td>
+                  <td>Selemani Maulidi</td><td>Secretary Minister of Sports and Entertainments</td><td>+255 628 689 782</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3 class="ministry-heading">Ministry for Education and Statistics</h3>
+          <div class="table-wrap">
+            <table class="data-table" border="1" width="100%">
+              <thead><tr><th>Photo</th><th>Full Name</th><th>Position</th><th>Contact</th></tr></thead>
+              <tbody>
+                <tr>
+                  <td><!-- <img src="images/benson-mushi.jpg" alt="Benson Mushi" class="leader-photo" /> --><div class="leader-avatar">BMS</div></td>
+                  <td>Benson Mushi</td><td>Minister of Education and Statistics</td><td>+255 716 024 322</td>
+                </tr>
+                <tr>
+                  <td><!-- <img src="images/stephano-kalolo.jpg" alt="Stephano Kalolo" class="leader-photo" /> --><div class="leader-avatar">SK</div></td>
+                  <td>Stephano Kalolo</td><td>D/Minister of Education and Statistics</td><td>+255 773 703 533</td>
+                </tr>
+                <tr>
+                  <td><!-- <img src="images/revocatus-wilson.jpg" alt="Revocatus Wilson" class="leader-photo" /> --><div class="leader-avatar">RW</div></td>
+                  <td>Revocatus Wilson</td><td>Secretary Minister of Education and Statistics</td><td>+255 616 287 654</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3 class="ministry-heading">Ministry for Home Affairs</h3>
+          <div class="table-wrap">
+            <table class="data-table" border="1" width="100%">
+              <thead><tr><th>Photo</th><th>Full Name</th><th>Position</th><th>Contact</th></tr></thead>
+              <tbody>
+                <tr>
+                  <td><!-- <img src="images/flavian-mapunda.jpg" alt="Flavian Mapunda" class="leader-photo" /> --><div class="leader-avatar">FM</div></td>
+                  <td>Flavian Mapunda</td><td>Minister of Home Affairs</td><td>+255 622 765 789</td>
+                </tr>
+                <tr>
+                  <td><!-- <img src="images/ally.jpg" alt="Ally" class="leader-photo" /> --><div class="leader-avatar">ALY</div></td>
+                  <td>Ally</td><td>Secretary Minister of Home Affairs</td><td>+255 657 823 053</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3 class="ministry-heading">Ministry for Transport and Communication</h3>
+          <div class="table-wrap">
+            <table class="data-table" border="1" width="100%">
+              <thead><tr><th>Photo</th><th>Full Name</th><th>Position</th><th>Contact</th></tr></thead>
+              <tbody>
+                <tr>
+                  <td><!-- <img src="images/jamali-charles.jpg" alt="Jamali Charles" class="leader-photo" /> --><div class="leader-avatar">JC</div></td>
+                  <td>Jamali Charles</td><td>Minister of Transport and Communication</td><td>+255 763 438 429</td>
+                </tr>
+                <tr>
+                  <td><!-- <img src="images/leonard-damas.jpg" alt="Leonard Damas" class="leader-photo" /> --><div class="leader-avatar">LD</div></td>
+                  <td>Leonard Damas</td><td>Secretary Minister of Transport and Communication</td><td>+255 521 059 812</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p class="eastcso-motto">"Serving students through Students"</p>
+        </section>
+
+        <!-- SECTION 6: SERVICES -->
+        <section id="services" class="section">
+          <h2 class="section-title">Student Services &amp; Activities</h2>
+          <p class="section-body">Everything EASTCSO offers to make your campus life better.</p>
+          <div class="services-grid">
+            <div class="service-card">
+              <!-- <img src="images/sports.jpg" alt="Sports" class="service-img" /> -->
+              <div class="service-img-placeholder">Add sports.jpg here</div>
+              <h3 class="service-name">Sports Clubs</h3>
+              <p class="service-desc">Football, basketball, volleyball and athletics. All students welcome.</p>
+            </div>
+            <div class="service-card">
+              <!-- <img src="images/library.jpg" alt="Library" class="service-img" /> -->
+              <div class="service-img-placeholder">Add library.jpg here</div>
+              <h3 class="service-name">Library Services</h3>
+              <p class="service-desc">Access to books, journals and digital resources at the EASTC library.</p>
+            </div>
+            <div class="service-card">
+              <!-- <img src="images/culture.jpg" alt="Cultural" class="service-img" /> -->
+              <div class="service-img-placeholder">Add culture.jpg here</div>
+              <h3 class="service-name">Cultural Activities</h3>
+              <p class="service-desc">Drama, music, dance and cultural exchange events throughout the year.</p>
+            </div>
+            <div class="service-card">
+              <!-- <img src="images/career.jpg" alt="Career" class="service-img" /> -->
+              <div class="service-img-placeholder">Add career.jpg here</div>
+              <h3 class="service-name">Career Support</h3>
+              <p class="service-desc">CV workshops, internship listings and professional development.</p>
+            </div>
+            <div class="service-card">
+              <!-- <img src="images/counsel.jpg" alt="Counselling" class="service-img" /> -->
+              <div class="service-img-placeholder">Add counsel.jpg here</div>
+              <h3 class="service-name">Counselling</h3>
+              <p class="service-desc">Academic and personal counselling for all registered students.</p>
+            </div>
+            <div class="service-card">
+              <!-- <img src="images/ict.jpg" alt="ICT" class="service-img" /> -->
+              <div class="service-img-placeholder">Add ict.jpg here</div>
+              <h3 class="service-name">ICT &amp; Computer Lab</h3>
+              <p class="service-desc">Computer lab and ICT resources for academic work and research.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- SECTION 7: CONTACT -->
+        <section id="contact" class="section">
+          <h2 class="section-title">Contact Administration</h2>
+          <p class="section-body">Send a message directly to EASTCSO administration. We respond within 2 working days.</p>
+          <div class="form-box">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="ct-name">Full Name</label>
+                <input type="text" id="ct-name" placeholder="Your full name" />
+              </div>
+              <div class="form-group">
+                <label for="ct-reg">Registration Number</label>
+                <input type="text" id="ct-reg" placeholder="e.g. EASTC/BDTS/26/001" />
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="ct-subject">Subject</label>
+              <input type="text" id="ct-subject" placeholder="What is your message about?" />
+            </div>
+            <div class="form-group">
+              <label for="ct-message">Message</label>
+              <textarea id="ct-message" rows="5" placeholder="Write your message to administration..."></textarea>
+            </div>
+            <button class="btn btn-primary" onclick="submitContact()">Send Message</button>
+            <p id="ct-error"   class="error-msg"></p>
+            <p id="ct-success" class="success-msg"></p>
+          </div>
+        </section>
+
+      </main>
+
+      <!-- ====================================================
+           SIDEBAR  (1fr) - id="sidebar" toggled by JS on mobile
+      ==================================================== -->
+      <aside class="sidebar" id="sidebar">
+
+        <!-- Close button - visible on mobile only -->
+        <button class="sidebar-close" id="sidebar-close" onclick="closeSidebar()">&#10005; Close</button>
+
+        <div class="sidebar-block">
+          <h3 class="sidebar-title">Navigation</h3>
+          <nav class="sidebar-nav">
+            <a href="#home"          class="nav-link" id="nav-home"          onclick="closeSidebar()">Home</a>
+            <a href="#about"         class="nav-link" id="nav-about"         onclick="closeSidebar()">About</a>
+            <a href="#events"        class="nav-link" id="nav-events"        onclick="closeSidebar()">Events</a>
+            <a href="#announcements" class="nav-link" id="nav-announcements" onclick="closeSidebar()">Announcements</a>
+            <a href="#leadership"    class="nav-link" id="nav-leadership"    onclick="closeSidebar()">Leadership</a>
+            <a href="#services"      class="nav-link" id="nav-services"      onclick="closeSidebar()">Services</a>
+            <a href="#contact"       class="nav-link" id="nav-contact"       onclick="closeSidebar()">Contact</a>
+          </nav>
+        </div>
+
+        <div class="sidebar-block">
+          <h3 class="sidebar-title">Latest Announcements</h3>
+          <ul id="sidebar-ann" class="sidebar-list">
+            <li class="sidebar-item muted">No announcements yet.</li>
+          </ul>
+        </div>
+
+        <div class="sidebar-block">
+          <h3 class="sidebar-title">Upcoming Events</h3>
+          <ul id="sidebar-ev" class="sidebar-list">
+            <li class="sidebar-item muted">No events yet.</li>
+          </ul>
+        </div>
+
+        <div class="sidebar-block">
+          <h3 class="sidebar-title">Quick Links</h3>
+          <ul class="sidebar-list">
+            <li class="sidebar-item"><a href="https://www.eastc.ac.tz" target="_blank">EASTC Main Website</a></li>
+            <li class="sidebar-item"><a href="#" target="_blank">Moodle E-Learning</a></li>
+            <li class="sidebar-item"><a href="#" target="_blank">Student Email Portal</a></li>
+          </ul>
+        </div>
+
+      </aside>
+
+    </div>
+  </div>
+
+  <!-- ========================================================
+       FOOTER
+  ======================================================== -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-left">
+        <p class="footer-name">&copy; 2026 EASTC Students Organization (EASTCSO)</p>
+        <p class="footer-addr">Eastern Africa Statistical Training Centre &middot; Dar es Salaam, Tanzania</p>
+      </div>
+      <div class="footer-links">
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#events">Events</a>
+        <a href="#announcements">Announcements</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <div class="footer-right">
+        <p class="footer-credit">Developed by Group [X]</p>
+        <p class="footer-credit">BDTS Session D &middot; EASTC 2026</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
