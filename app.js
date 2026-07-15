@@ -16,26 +16,16 @@
 
 
 /* ─────────────────────────────────────────────────────────
-   1. LIVE CLOCK
-   setInterval - Session 05 slide JS 22
-───────────────────────────────────────────────────────── */
-setInterval(function () {
-  let now  = new Date();
-  let time = now.toLocaleTimeString();
-  document.getElementById("live-clock").innerHTML = time;
-}, 1000);
-
-
-/* ─────────────────────────────────────────────────────────
-   2. SIDEBAR TOGGLE (Mobile / Tablet)
+   1. SIDEBAR TOGGLE (Mobile / Tablet)
    Shows and hides the 1fr sidebar on small screens.
    Uses getElementById and className - Session 05
 ───────────────────────────────────────────────────────── */
 
-/* Open the sidebar - called by "Nav" button onclick */
+/* Open the sidebar - called by the hamburger button onclick */
 function toggleSidebar() {
   let sidebar  = document.getElementById("sidebar");
   let overlay  = document.getElementById("sidebar-overlay");
+  let toggle   = document.getElementById("nav-toggle");
   let isOpen   = sidebar.className.indexOf("open") !== -1;
 
   if (isOpen === true) {
@@ -43,6 +33,7 @@ function toggleSidebar() {
   } else {
     sidebar.className = "sidebar open";
     overlay.className = "sidebar-overlay active";
+    toggle.className  = "nav-toggle is-active";
     /* Prevent page from scrolling behind sidebar */
     document.body.style.overflow = "hidden";
   }
@@ -52,9 +43,11 @@ function toggleSidebar() {
 function closeSidebar() {
   let sidebar = document.getElementById("sidebar");
   let overlay = document.getElementById("sidebar-overlay");
+  let toggle  = document.getElementById("nav-toggle");
 
   sidebar.className = "sidebar";
   overlay.className = "sidebar-overlay";
+  toggle.className  = "nav-toggle";
   document.body.style.overflow = "";
 }
 
